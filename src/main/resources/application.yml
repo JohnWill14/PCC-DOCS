@@ -1,0 +1,24 @@
+spring:
+  application:
+    name: pcc-docs
+  data:
+    mongodb:
+      database: pcc_docs
+      host: localhost
+      port: '27017'
+      username: root
+      password: example
+      authentication-database: admin
+  servlet:
+    multipart:
+      max-file-size: 256MB
+      max-request-size: 256MB
+      enabled: true
+  server:
+    port: 8080
+  springdoc:
+    swagger-ui:
+      disable-swagger-default-url: true
+      path: /swagger-ui.html
+    api-docs:
+      path: /api-docs
