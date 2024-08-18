@@ -3,6 +3,19 @@ version: '3.1'
 
 services:
 
+  pcc-docs:
+    image: johnwillv/pcc_docs
+    restart: always
+    container_name: pcc-docs
+    ports:
+      - 8080:8080
+    environment:
+      SPRING_DATA_MONGODB_URI: mongodb://root:example@mongo:27017/pcc_docs?authSource=admin
+    networks:
+      - app-network
+    depends_on:
+      - mongo
+
   mongo:
     image: mongo
     restart: always
@@ -10,6 +23,9 @@ services:
       - 27017:27017
     volumes:
       - ./init-mongo.js:/docker-entrypoint-initdb.d/init-mongo.js:ro
+      - mongo_data:/data/db  # Monta o volume no diretório de dados do MongoDB
+    networks:
+      - app-network
     environment:
       MONGO_INITDB_ROOT_USERNAME: root
       MONGO_INITDB_ROOT_PASSWORD: example
@@ -24,3 +40,14 @@ services:
       ME_CONFIG_MONGODB_ADMINPASSWORD: example
       ME_CONFIG_MONGODB_URL: mongodb://root:example@mongo:27017/
       ME_CONFIG_BASICAUTH: false
+    networks:
+      - app-network
+    depends_on:
+      - mongo
+
+networks:
+  app-network:
+    driver: bridge
+
+volumes:
+  mongo_data:
