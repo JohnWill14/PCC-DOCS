@@ -4,7 +4,7 @@ spring:
   data:
     mongodb:
       database: pcc_docs
-      host: localhost
+      host: ${SPRING_DATA_MONGODB_URI:localhost}
       port: '27017'
       username: root
       password: example
