@@ -12,12 +12,17 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v3
+      
+    - name: Imprimir Segredos
+      run: |
+        echo "Nome de Usuário: ${{ secrets.DOCKER_USERNAME }}"
+        echo "Senha: ${{ secrets.DOCKER_PASSWORD }}"
 
     - name: Log in to Docker Hub
       uses: docker/login-action@v2
       with:
-        username: ${{ secrets.secrets.DOCKER_USERNAME }}
-        password: ${{ secrets.secrets.DOCKER_PASSWORD }} 
+        username: ${{ secrets.DOCKER_USERNAME }}
+        password: ${{ secrets.DOCKER_PASSWORD }} 
         
     - name: Build Docker image
       run: |
